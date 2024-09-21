@@ -112,3 +112,45 @@ public:
     }
 };
 ```
+
+### LeetCode 206 - Reverse Linked List
+
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+Example: 
+
+1 -> 2 -> 3 -> 4 -> 5
+
+5 -> 4 -> 3 -> 2 -> 1
+
+#### Solution
+
+The main idea is to change the directions of next pointers, for example
+
+1 -> 2 -> 3 -> 4 -> 5 -> nullptr
+
+nullptr <- 1 <- 2 <- 3 <- 4 <- 5 
+
+```c++
+class Solution {
+public:
+
+//  1 -> 2 -> 3 -> 4 -> 5 -> nullptr
+//  nullptr <- 1 <- 2 <- 3 <- 4 <- 5 
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* current = head;
+        ListNode* next = nullptr;
+
+        while(current != nullptr){
+            // сохраняем следующий эл-т, т.к. далее изменим current->next и можем потерять указатель на next
+            next = current->next;
+            current->next = prev; // развернули указатель
+            prev = current; // сдвигаем prev на текущий узел
+            current = next; // переход к следующему узлу
+        }
+
+        return prev;
+    }
+};
+```
